@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+<h1>Add Product</h1>
+<form >
+    <label for="price">price:</label><br>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <label for="desc">desc:</label><br>
+    <textarea id="desc" name="desc" rows="4" cols="50" required></textarea><br><br>
+
+    <input type="button" onclick="send_data()" value="Add Item">
+</form>
+
+
+
+<script>
+
+const send_data=()=> {
+    axios.post("http://127.0.0.1:5000/add",{
+        price: price.value,
+        desc: desc.value
+    })
+     window.location.href = '/'
+    
+}        
+
+</script>
+{% endblock %}

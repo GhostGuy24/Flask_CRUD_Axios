@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Products List{% endblock %}
+{% block content %}
+<h1>Available Products</h1>
+
+<form>
+    <label for="price">price:</label><br>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <label for="desc">desc:</label><br>
+    <textarea id="desc" name="desc" rows="4" cols="50" required></textarea><br><br>
+
+</form>
+
+<div class="product-list">
+    {% for prod in my_products %}
+    <div class="product-item">
+        <div class="product-details">
+            <span class="product-price">Price: {{ prod.price }}</span>
+            <span class="product-desc">Description: {{ prod.desc }}</span>
+        </div>
+        <div class="product-actions">
+            <button onclick="del_prod({{prod.id}})" class="btn-delete">Delete</button>
+            <button onclick="upd_prod({{prod.id}})" class="btn-update">Update</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<script>
+    const del_prod = (id) => {
+        axios.delete(`http://127.0.0.1:5000/del/${id}`)
+        window.location.reload()
+    }
+    const upd_prod = (id) => {
+        axios.put(`http://127.0.0.1:5000/upd/${id}`, {
+            price: price.value,
+            desc: desc.value
+        })
+        window.location.reload()
+    }
+</script>
+{% endblock %}
